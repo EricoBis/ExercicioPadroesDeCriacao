@@ -1,11 +1,20 @@
 package Exercicio1;
 
-import java.util.Collection;
+import java.util.*;
 
-public class CollectionFactory {
+public class CollectionFactory<T> {
     
-    public static <E> Collection<E> criaInstancia(int tam, boolean ehOrdenado, boolean podeRepetir){    
-        //TODO 
-        return null;
+    public Collection<T> criaInstancia(int tam, boolean ehOrdenado, boolean podeRepetir){
+        if(tam > 0){
+            return new ArrayList<>(tam);
+        }
+        if(ehOrdenado == true) {
+            if (podeRepetir == true) {
+                return new LinkedList<>();
+            } else {
+                return new TreeSet<>();
+            }
+        }
+        return new HashSet<>();
     }
 }

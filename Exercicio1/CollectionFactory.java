@@ -4,17 +4,28 @@ import java.util.*;
 
 public class CollectionFactory<T> {
 
-    public Collection<T> criaInstancia(int tam, boolean ehOrdenado, boolean podeRepetir) {
-        if (tam > 0) {
-            return new ArrayList<>(tam);
+    private static CollectionFactory factory = null;
+
+    private CollectionFactory() {
+    }
+
+    public static CollectionFactory getInstance() {
+        if (factory == null)
+            factory = new CollectionFactory();
+
+        return factory;
+    }
+
+    public <T> Collection<T> createCollection(int size, boolean sorted, boolean canRepeat) {
+        if (size > 0)
+            return new ArrayList<T>(size);
+
+        if (sorted == true) {
+            if (canRepeat == true)
+                return new LinkedList<T>();
+            else
+                return new TreeSet<T>();
         }
-        if (ehOrdenado == true) {
-            if (podeRepetir == true) {
-                return new LinkedList<>();
-            } else {
-                return new TreeSet<>();
-            }
-        }
-        return new HashSet<>();
+        return new HashSet<T>();
     }
 }
